@@ -1,0 +1,14 @@
+{
+  "name": "collect",
+  "version": "0.1",
+  "description": "Link Aggregator",
+  "browser_action": {
+    "default_icon": "icon_luke.png",
+    "popup": "popup.html"
+  },
+  "background_page": "background.html",
+  "permissions": [
+    "tabs",
+    "http://*/"
+  ]
+}
