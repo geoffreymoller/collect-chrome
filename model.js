@@ -16,7 +16,7 @@ Model.saveLink = function(title, uri, tags, notes, callbacks) {
 }
 
 Model.getURIByKey = function(URI, callbacks) {
-    var path = this.BaseURI + '/getURIByKey?URI=' + URI;
+    var path = this.BaseURI + '/getURIByKey?URI=' + escape(URI);
     this.query(path, '', callbacks);
 }
 

@@ -107,7 +107,7 @@ Collect.prototype.save = function(){
         this.saveCallback.call(this, req);
     }, this);
     var title = this.tab.title;
-    var uri = this.tab.url;
+    var uri = escape(this.tab.url);
     var tags = document.getElementById('tags').value.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g,'').replace(/\s+/g,' ').split(' ');
     var notes = document.getElementById('notes').value;
     Model.saveLink(title, uri, tags, notes, { 'success': callback });
