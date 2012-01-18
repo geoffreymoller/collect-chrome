@@ -1,9 +1,3 @@
-//Tags: http://50.56.86.106:5984/links/_design/tags/_view/tags?group=true
-
-//chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-    //alert(tab.url);
-//});
-
 function Collect(){ 
     this.tab = null;
     this.main();
@@ -64,8 +58,9 @@ Collect.prototype.paintHTML = function(row){
     document.body.appendChild(div);
     var html = '<table>'; 
     html += '<tr><td>Title: </td><td id="title"><input readonly="readonly" type="text" value="' + this.payload.title + '"/></td></tr>'; 
-    html += '<tr><td>Location: </td><td id="location"><input readonly="readonly" type="text" value="' + this.payload.uri + '"/></td></tr>'; 
-    html += '<tr><td>Tags: </td><td id="location"><input id="tags" type="text" /></td></tr>'; 
+    html += '<tr><td>Location: </td><td><input readonly="readonly" type="text" value="' + this.payload.uri + '"/></td></tr>'; 
+    html += '<tr><td>Tags: </td><td><input id="tags" type="text" /></td></tr>'; 
+    html += '<tr><td>Notes: </td><td><textarea id="notes"></textarea></td></tr>'; 
     html += '<tr><td></td><td><button id="submit">Save Link</button></td></tr>'; 
     html += '</table>'; 
     document.getElementById('container').innerHTML = html; 
@@ -76,6 +71,9 @@ Collect.prototype.paintHTML = function(row){
         document.getElementById('container').className = 'existing';            
         if(row.value.tags){
             document.getElementById('tags').value = row.value.tags.join(' '); 
+        }
+        if(row.value.notes){
+            document.getElementById('notes').value = row.value.notes;
         }
         submitHandler = goog.bindNative_(this.update, this); 
     }
@@ -91,7 +89,8 @@ Collect.prototype.update = function(id){
         this.updateCallback.call(this, req);
     }, this);
     var tags = document.getElementById('tags').value.split(' ').join(',');
-    Model.updateLink(this.id, tags, { 'success': callback });
+    var notes = document.getElementById('notes').value;
+    Model.updateLink(this.id, tags, notes, { 'success': callback });
 }
 
 Collect.prototype.updateCallback = function(res){
@@ -110,7 +109,8 @@ Collect.prototype.save = function(){
     var title = this.tab.title;
     var uri = this.tab.url;
     var tags = document.getElementById('tags').value.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g,'').replace(/\s+/g,' ').split(' ');
-    Model.saveLink(title, uri, tags, { 'success': callback });
+    var notes = document.getElementById('notes').value;
+    Model.saveLink(title, uri, tags, notes, { 'success': callback });
 }
 
 Collect.prototype.saveCallback = function(res){

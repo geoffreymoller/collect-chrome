@@ -1,28 +1,34 @@
 Model = {
-    BaseURI: 'http://collect.no.de'
+    BaseURI: 'http://localhost:3000'
 }
 
-Model.updateLink = function(id, tags, callbacks) {
-    var path = this.BaseURI + '/update?id=' + id + '&tags=' + tags;
-    this.query(path, callbacks, 'PUT');
+Model.updateLink = function(id, tags, notes, callbacks) {
+    var path = this.BaseURI + '/update';
+    var params = 'id=' + id + '&tags=' + tags + '&notes=' + notes;
+    this.query(path, params, callbacks, 'POST');
 }
 
-Model.saveLink = function(title, uri, tags, callbacks) {
-    var path = this.BaseURI + '/save?title=' + title + '&uri=' + uri + '&tags=' + tags;
+Model.saveLink = function(title, uri, tags, notes, callbacks) {
+    var path = this.BaseURI + '/save';
+    var params = 'title=' + title + '&uri=' + uri + '&tags=' + tags + '&notes=' + notes;
     path = encodeURI(path);
-    this.query(path, callbacks);
+    this.query(path, params, callbacks, 'POST');
 }
 
 Model.getURIByKey = function(URI, callbacks) {
-    var path = this.BaseURI + '/getURIByKey?URI=' + URI; 
-    this.query(path, callbacks);
+    var path = this.BaseURI + '/getURIByKey?URI=' + URI;
+    this.query(path, '', callbacks);
 }
 
-Model.query = function(path, optCallback, optMethod) { 
+Model.query = function(path, params, optCallback, optMethod) { 
 
     var method = optMethod || "GET";
     var req = new XMLHttpRequest();
     req.open(method, path , true);
+
+    if(method === 'POST'){
+      req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    }
 
     req.onreadystatechange = function() {
         if (req.readyState !== 4)  { return; }
@@ -39,6 +45,12 @@ Model.query = function(path, optCallback, optMethod) {
         }
     };
 
-    req.send(null);
+    if(method === 'POST' && params){
+      req.send(params);
+    }
+    else {
+      req.send(null);
+    }    
+
 }
 
