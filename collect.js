@@ -53,12 +53,22 @@ Collect.prototype.paintError = function(message){
 
 Collect.prototype.paintHTML = function(row){
 
+    var title, uri;
+    if(row){
+      title = row.value.title;
+      uri = row.value.uri;
+    }
+    else {
+      title = this.payload.title; 
+      uri = this.payload.uri;
+    }
+
     var div = document.createElement('div');
     div.id = 'container';
     document.body.appendChild(div);
     var html = '<table>'; 
-    html += '<tr><td>Title: </td><td id="title"><input readonly="readonly" type="text" value="' + this.payload.title + '"/></td></tr>'; 
-    html += '<tr><td>Location: </td><td><input readonly="readonly" type="text" value="' + this.payload.uri + '"/></td></tr>'; 
+    html += '<tr><td>Title: </td><td id="title"><input type="text" value="' + title + '"/></td></tr>'; 
+    html += '<tr><td>Location: </td><td><input readonly="readonly" type="text" value="' + uri + '"/></td></tr>'; 
     html += '<tr><td>Tags: </td><td><input id="tags" type="text" /></td></tr>'; 
     html += '<tr><td>Notes: </td><td><textarea id="notes"></textarea></td></tr>'; 
     html += '<tr><td></td><td><button id="submit">Save Link</button></td></tr>'; 
@@ -88,9 +98,10 @@ Collect.prototype.update = function(id){
     var callback = goog.bindNative_(function(req){
         this.updateCallback.call(this, req);
     }, this);
+    var title = document.getElementById('title').getElementsByTagName('input')[0].value;
     var tags = document.getElementById('tags').value.split(' ').join(',');
     var notes = document.getElementById('notes').value;
-    Model.updateLink(this.id, tags, notes, { 'success': callback });
+    Model.updateLink(this.id, title, tags, notes, { 'success': callback });
 }
 
 Collect.prototype.updateCallback = function(res){
@@ -106,7 +117,7 @@ Collect.prototype.save = function(){
     var callback = goog.bindNative_(function(req){
         this.saveCallback.call(this, req);
     }, this);
-    var title = this.tab.title;
+    var title = document.getElementById('title').getElementsByTagName('input')[0].value;
     var uri = escape(this.tab.url);
     var tags = document.getElementById('tags').value.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g,'').replace(/\s+/g,' ').split(' ');
     var notes = document.getElementById('notes').value;

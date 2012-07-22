@@ -1,10 +1,10 @@
 Model = {
-    BaseURI: 'http://collect.no.de'
+    BaseURI: 'http://localhost:3000'
 }
 
-Model.updateLink = function(id, tags, notes, callbacks) {
+Model.updateLink = function(id, title, tags, notes, callbacks) {
     var path = this.BaseURI + '/update';
-    var params = 'id=' + id + '&tags=' + tags + '&notes=' + notes;
+    var params = 'id=' + id + '&title=' + title + '&tags=' + tags + '&notes=' + notes;
     this.query(path, params, callbacks, 'POST');
 }
 
