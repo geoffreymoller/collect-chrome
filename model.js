@@ -8,9 +8,9 @@ Model.updateLink = function(id, title, tags, notes, callbacks) {
     this.query(path, params, callbacks, 'POST');
 }
 
-Model.saveLink = function(title, uri, tags, notes, callbacks) {
+Model.saveLink = function(title, uri, tags, notes, saveImage, callbacks) {
     var path = this.BaseURI + '/save';
-    var params = 'title=' + title + '&uri=' + uri + '&tags=' + tags + '&notes=' + notes;
+    var params = 'title=' + title + '&uri=' + uri + '&tags=' + tags + '&notes=' + notes + '&saveImage=' + saveImage;
     path = encodeURI(path);
     this.query(path, params, callbacks, 'POST');
 }

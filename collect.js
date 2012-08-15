@@ -71,6 +71,7 @@ Collect.prototype.paintHTML = function(row){
     html += '<tr><td>Location: </td><td><input readonly="readonly" type="text" value="' + uri + '"/></td></tr>'; 
     html += '<tr><td>Tags: </td><td><input id="tags" type="text" /></td></tr>'; 
     html += '<tr><td>Notes: </td><td><textarea id="notes"></textarea></td></tr>'; 
+    html += '<tr><td><label for="saveImage">Save Image</label>: </td><td><input type="checkbox" checked="checked" name="saveImage" id="saveImage"></input></td></tr>'; 
     html += '<tr><td></td><td><button id="submit">Save Link</button></td></tr>'; 
     html += '</table>'; 
     document.getElementById('container').innerHTML = html; 
@@ -121,7 +122,8 @@ Collect.prototype.save = function(){
     var uri = escape(this.tab.url);
     var tags = document.getElementById('tags').value.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g,'').replace(/\s+/g,' ').split(' ');
     var notes = document.getElementById('notes').value;
-    Model.saveLink(title, uri, tags, notes, { 'success': callback });
+    var saveImage = document.getElementById('saveImage').checked;
+    Model.saveLink(title, uri, tags, notes, saveImage, { 'success': callback });
 }
 
 Collect.prototype.saveCallback = function(res){
