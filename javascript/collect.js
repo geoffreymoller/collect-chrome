@@ -1,6 +1,5 @@
 function Collect(){ 
     this.tab = null;
-    this.main();
 }
 
 Collect.prototype.main = function(){
@@ -100,7 +99,7 @@ Collect.prototype.update = function(id){
         this.updateCallback.call(this, req);
     }, this);
     var title = document.getElementById('title').getElementsByTagName('input')[0].value;
-    var tags = document.getElementById('tags').value.split(' ').join(',');
+    var tags = this.getTags(document.getElementById('tags').value).split(' ');
     var notes = document.getElementById('notes').value;
     Model.updateLink(this.id, title, tags, notes, { 'success': callback });
 }
@@ -120,7 +119,7 @@ Collect.prototype.save = function(){
     }, this);
     var title = document.getElementById('title').getElementsByTagName('input')[0].value;
     var uri = escape(this.tab.url);
-    var tags = document.getElementById('tags').value.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g,'').replace(/\s+/g,' ').split(' ');
+    var tags = this.getTags(document.getElementById('tags').value).split(' ');
     var notes = document.getElementById('notes').value;
     var saveImage = document.getElementById('saveImage').checked;
     Model.saveLink(title, uri, tags, notes, saveImage, { 'success': callback });
@@ -134,6 +133,12 @@ Collect.prototype.saveCallback = function(res){
 
 Collect.prototype.saveError = function(req){
     throw new Error('Link Save Request error: ' + req.status + '; ' + req.statusText);
+}
+
+Collect.prototype.getTags = function(tags){
+  tags = tags.replace(/,/g, ' ');
+  tags = tags.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g,'').replace(/\s+/g,' ');
+  return tags;
 }
 
 var goog = {};
