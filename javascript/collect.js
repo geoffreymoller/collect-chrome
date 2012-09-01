@@ -95,6 +95,7 @@ Collect.prototype.paintHTML = function(row){
 }
 
 Collect.prototype.update = function(id){
+    window.close();
     var callback = goog.bindNative_(function(req){
         this.updateCallback.call(this, req);
     }, this);
@@ -106,7 +107,6 @@ Collect.prototype.update = function(id){
 
 Collect.prototype.updateCallback = function(res){
     var response = JSON.parse(res.responseText);
-    window.close();
 }
 
 Collect.prototype.updateFailure = function(req){
@@ -114,6 +114,7 @@ Collect.prototype.updateFailure = function(req){
 }
 
 Collect.prototype.save = function(){
+    window.close();
     var callback = goog.bindNative_(function(req){
         this.saveCallback.call(this, req);
     }, this);
@@ -128,7 +129,6 @@ Collect.prototype.save = function(){
 Collect.prototype.saveCallback = function(res){
     var response = JSON.parse(res.responseText);
     icon.paint(true);
-    window.close();
 }
 
 Collect.prototype.saveError = function(req){
