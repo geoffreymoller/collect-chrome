@@ -1,5 +1,5 @@
 Model = {
-    BaseURI: 'http://localhost:3000'
+    BaseURI: 'http://localhost:1972'
 }
 
 Model.updateLink = function(id, title, tags, notes, callbacks) {
