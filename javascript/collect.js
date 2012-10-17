@@ -80,7 +80,7 @@ Collect.prototype.paintHTML = function(row){
         this.id = row.id;
         document.getElementById('container').className = 'existing';            
         if(row.value.tags){
-            document.getElementById('tags').value = row.value.tags.join(' '); 
+            document.getElementById('tags').value = row.value.tags.sort().join(' '); 
         }
         if(row.value.notes){
             document.getElementById('notes').value = row.value.notes;
