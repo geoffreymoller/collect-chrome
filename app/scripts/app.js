@@ -1,13 +1,21 @@
 'use strict';
 
-angular.module('collectChromeApp', [])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
+var app = angular.module('collect', []);
+
+app.service('chromeService', function() {
+  return chrome;
+});
+
+app.controller('CollectController', function($scope, $rootScope, $http, $location, $routeParams, $q, chromeService) {
+
+  $scope.query = function(){
+    chromeService.tabs.query({}, angular.bind(this, function(tab) {
+      $scope.$apply(function(){
+        $scope.tab = tab;
       });
-  });
+    }));
+  }
+
+}).$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$q', 'chromeService'];
+
+

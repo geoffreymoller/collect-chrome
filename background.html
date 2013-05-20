@@ -1,0 +1,42 @@
+<!--
+<script src="javascript/icon.js"></script> 
+<script src="javascript/model.js"></script> 
+<script>
+//TODO - reconcile visited tabs with an in-session link deletion
+var visitedTabs = {};
+
+var focusSelectionDelegate = function(){
+    var selectedTab = chrome.tabs.getSelected(null, function(tab) {
+        icon.paint(visitedTabs[tab.url]);
+    })
+}
+
+chrome.windows.onFocusChanged.addListener(focusSelectionDelegate);
+chrome.tabs.onSelectionChanged.addListener(focusSelectionDelegate)
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+
+    var callbacks = {
+        success: function(response){
+            if(response.status === 200){
+                var items = JSON.parse(response.responseText);
+                var previouslySaved = (items.length === 1 && items[0].key === tab.url);
+                icon.paint(previouslySaved);
+                if(previouslySaved){
+                    visitedTabs[tab.url] = true;
+                }
+                else {
+                    delete visitedTabs[tab.url];
+                }
+            }
+        }
+    }
+
+    if(changeInfo.status === 'loading'){
+        Model.getURIByKey(changeInfo.url, callbacks);
+    }
+
+});
+
+</script>
+-->

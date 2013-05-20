@@ -1,22 +1,40 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: CollectController', function () {
 
-  // load the controller's module
-  beforeEach(module('collectChromeApp'));
+  beforeEach(module('collect'));
 
   var MainCtrl,
     scope;
 
-  // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    MainCtrl = $controller('CollectController', {
       $scope: scope
+      , chromeService: {
+        tabs: {
+          query: function(){
+            return {
+              active: true
+              , favIconUrl: "http://docs.angularjs.org/favicon.ico"
+              , highlighted: true
+              , id: 1004
+              , incognito: false
+              , index: 2
+              , pinned: false
+              , selected: true
+              , status: "complete"
+              , title: "AngularJS: $controller"
+              , url: "http://docs.angularjs.org/api/ng.$controller"
+              , windowId: 136
+            }
+          }
+        }
+      }
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('should return the current tab', function () {
+    expect(1).toBe(1);
   });
 });
