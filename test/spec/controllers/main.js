@@ -4,12 +4,13 @@ describe('Controller: CollectController', function () {
 
   beforeEach(module('collect'));
 
-  var MainCtrl,
-    scope;
+  var controller, scope;
 
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, $httpBackend) {
+
     scope = $rootScope.$new();
-    MainCtrl = $controller('CollectController', {
+    //$httpBackend.whenGET('/link/http%3A//www.cnn.com').respond([])
+    controller = $controller('CollectController', {
       $scope: scope
       , chromeService: {
         tabs: {
@@ -32,9 +33,11 @@ describe('Controller: CollectController', function () {
         }
       }
     });
+
   }));
 
   it('should return the current tab', function () {
     expect(1).toBe(1);
   });
+
 });
