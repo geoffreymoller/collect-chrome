@@ -1,13 +1,22 @@
 <link rel="stylesheet" href="collect.css" />
 
-<script src="app/components/angular/angular.min.js"></script> 
-<script src="app/components/angular-resource/angular-resource.min.js"></script> 
+<script src="app/components/angular/angular.js"></script> 
+<script src="app/components/angular-resource/resource.js"></script> 
 <script src="app/scripts/app.js"></script> 
 
-<div ng-csp ng-app="collect">
+<div id="container" ng-csp ng-app="collect">
+
   <div ng-controller="CollectController" class="hero-unit">
-    <h1>'Allo, 'Allo!</h1>
-    <h1>{{foobar}}</h1>
+    <form novalidate>
+      <table>
+        <tr><td>Title: </td><td id="title"><input type="text" ng-model="link.value.title" /></td></tr>
+        <tr><td>Location: </td><td><input readonly="readonly" type="text" ng-model="link.value.uri" /></td></tr>
+        <tr><td>Tags: </td><td><input id="tags" type="text" ng-model="link.value.tags"/></td></tr>
+        <tr><td>Notes: </td><td><textarea id="notes" ng-model="link.value.notes"></textarea></td></tr>
+        <tr><td><label for="saveImage">Save Image</label>: </td><td><input type="checkbox" checked="{{saveImage}}"></input></td></tr>
+        <tr><td></td><td><button id="submit">Save Link</button></td></tr>
+      </table>
+    </form>
   </div>
 </div>
 
