@@ -31,7 +31,16 @@ span.error {
   margin: 5px;
 }
 
-#container.existing {
+.existing {
   background: url('117-todo.png') 10px 10px no-repeat;
 }
+
+.controller {
+  display: none;
+}
+
+.controller.loaded {
+  display: block;
+}
+
 
