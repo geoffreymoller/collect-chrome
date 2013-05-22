@@ -36,8 +36,28 @@ describe('Controller: CollectController', function () {
 
   }));
 
-  it('should return the current tab', function () {
-    expect(1).toBe(1);
+
+  describe('tags', function(){
+
+    it('should split tags and produce an array', function () {
+      var tags = '  foo   bar   baz ';
+      var expected = ['foo', 'bar', 'baz'];
+      var returned = scope.polishTags(tags);
+      expect(returned).toEqual(expected);
+      var tags = 'foo bar baz';
+      var returned = scope.polishTags(tags);
+      expect(returned).toEqual(expected);
+      var tags = 'foo,bar,baz';
+      var returned = scope.polishTags(tags);
+      expect(returned).toEqual(expected);
+      var tags = ' foo   bar,baz';
+      var returned = scope.polishTags(tags);
+      expect(returned).toEqual(expected);
+      var tags = ',, foo   bar  ,   baz';
+      var returned = scope.polishTags(tags);
+      expect(returned).toEqual(expected);
+    });
+
   });
 
 });

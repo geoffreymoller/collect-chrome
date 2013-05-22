@@ -33,10 +33,21 @@ app.controller('CollectController', function($scope, $rootScope, $http, $locatio
       });
     };
 
-  }
+  };
 
   $scope.submit = function(){
-    $scope.link.$save();
+    $scope.polish($scope.link).$save();
+  };
+
+  $scope.polish = function(link){
+    link.value.tags = $scope.polishTags(link.value.tags);
+    return link;
+  };
+
+  $scope.polishTags = function(tags){
+    tags = tags.replace(/,/g, ' ');
+    tags = tags.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g,'').replace(/\s+/g,' ');
+    return tags.split(' ');
   }
 
   $scope.query();
