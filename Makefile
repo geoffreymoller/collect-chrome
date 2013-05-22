@@ -1,3 +1,3 @@
 test:
-	karma start --singleRun=true
+	karma start --singleRun=false --autoWatch=true
 .PHONY: test
