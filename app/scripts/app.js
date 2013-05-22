@@ -11,6 +11,8 @@ app.controller('CollectController', function($scope, $rootScope, $http, $locatio
   var BaseURI = 'http://localhost:port';
   var Link = $resource(BaseURI + '/link', { port: ":1972" });
 
+  $scope.saveImage = true; 
+
   $scope.query = function(){
 
     chromeService.tabs.query({'active': true}, tabQueryHandler); 
@@ -18,7 +20,6 @@ app.controller('CollectController', function($scope, $rootScope, $http, $locatio
     function tabQueryHandler(tab) {
       var link = Link.query({ URI : tab[0].url });
       link.$promise.then(function(link){
-        $scope.saveImage = true; 
         $scope.loaded = true; 
         $scope.tab = tab[0];
         if(link[0]){
