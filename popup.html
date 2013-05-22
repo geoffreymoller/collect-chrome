@@ -6,17 +6,20 @@
 
 <div id="container" ng-csp ng-app="collect">
 
-  <div ng-controller="CollectController" class="hero-unit">
-    <form novalidate>
+  <div ng-controller="CollectController" class="controller hero-unit" ng-class="{'existing':existing, 'loaded':loaded}">
+
+    <form ng-submit="submit()" novalidate>
       <table>
         <tr><td>Title: </td><td id="title"><input type="text" ng-model="link.value.title" /></td></tr>
         <tr><td>Location: </td><td><input readonly="readonly" type="text" ng-model="link.value.uri" /></td></tr>
-        <tr><td>Tags: </td><td><input id="tags" type="text" ng-model="link.value.tags"/></td></tr>
+        <tr><td>Tags: </td><td><input autofocus id="tags" type="text" ng-model="link.value.tags"/></td></tr>
         <tr><td>Notes: </td><td><textarea id="notes" ng-model="link.value.notes"></textarea></td></tr>
         <tr><td><label for="saveImage">Save Image</label>: </td><td><input type="checkbox" checked="{{saveImage}}"></input></td></tr>
         <tr><td></td><td><button id="submit">Save Link</button></td></tr>
       </table>
     </form>
+
   </div>
+
 </div>
 
