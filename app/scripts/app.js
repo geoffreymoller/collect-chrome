@@ -36,11 +36,14 @@ app.controller('CollectController', function($scope, $rootScope, $http, $locatio
   };
 
   $scope.submit = function(){
+    window.close();
     $scope.polish($scope.link).$save();
   };
 
   $scope.polish = function(link){
-    link.value.tags = $scope.polishTags(link.value.tags);
+    if(!angular.isArray(link.value.tags)){
+      link.value.tags = $scope.polishTags(link.value.tags);
+    }
     return link;
   };
 
