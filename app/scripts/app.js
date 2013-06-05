@@ -15,7 +15,7 @@ app.controller('CollectController', function($scope, $rootScope, $http, $locatio
 
   $scope.query = function(){
 
-    chromeService.tabs.query({'active': true}, tabQueryHandler); 
+    chromeService.tabs.query({'active': true, 'currentWindow': true}, tabQueryHandler);
 
     function tabQueryHandler(tab) {
       var link = Link.query({ URI : tab[0].url });
