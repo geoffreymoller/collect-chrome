@@ -6,12 +6,18 @@
 
 <div id="container" ng-csp ng-app="collect">
 
-  <div ng-controller="CollectController" class="controller hero-unit" ng-class="{'existing':existing, 'loaded':loaded}">
+  <div ng-controller="CollectController" class="controller hero-unit" ng-class="{'existing':existing}">
 
-    <form ng-submit="submit()" novalidate>
+    <div class="error" ng-show="error.status">
+      <h3>The server is not responding</h3>
+      <h5>{{error.message}}</h5>
+      <img src="https://geoffreymoller-collect.s3.amazonaws.com/2013/5/21/tumblr_m82johBhQv1rycz0wo1_500.gif" />
+    </div> 
+
+    <form ng-submit="submit()" ng-class="{'loaded': loaded}" novalidate>
       <table>
         <tr><td>Title: </td><td id="title"><input type="text" ng-model="link.value.title" /></td></tr>
-        <tr><td>Location: </td><td><input readonly="readonly" type="text" ng-model="link.value.uri" /></td></tr>
+        <tr><td>Location: </td><td><input id="location" ng-click="goToURI()" readonly="readonly" type="text" ng-model="link.value.uri" /></td></tr>
         <tr><td>Tags: </td><td><input autofocus id="tags" type="text" ng-model="link.value.tags"/></td></tr>
         <tr><td>Notes: </td><td><textarea id="notes" ng-model="link.value.notes"></textarea></td></tr>
         <tr><td><label for="saveImage">Save Image</label>: </td><td><input type="checkbox" checked="{{saveImage}}"></input></td></tr>

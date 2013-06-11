@@ -35,12 +35,19 @@ span.error {
   background: url('117-todo.png') 10px 10px no-repeat;
 }
 
-.controller {
+form {
   display: none;
 }
 
-.controller.loaded {
+form.loaded {
   display: block;
 }
 
+.error img {
+  max-width: 200px;
+}
+
+#location {
+  cursor: pointer;
+}
 
