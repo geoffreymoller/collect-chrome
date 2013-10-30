@@ -69,7 +69,7 @@ app.service('$chromeService', function() {
 app.service('$model', function($resource) {
   return {
     getBaseURI: function(){
-      return 'http://localhost:port';
+      return 'http://127.0.0.1:port';
     }
     , Link: function(){
       return $resource(this.getBaseURI() + '/link', { port: ":1972" });
