@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="collect.css" />
+<link rel="stylesheet" href="clock.css" />
 
 <script src="app/components/angular/angular.js"></script> 
 <script src="app/scripts/angular/resource.js"></script> 
@@ -8,13 +9,20 @@
 
   <div ng-controller="CollectController" class="controller hero-unit" ng-class="{'existing':existing}">
 
-    <div class="error" ng-show="error.status">
-      <h3>The server is not responding</h3>
-      <h5>{{error.message}}</h5>
-      <img src="https://geoffreymoller-collect.s3.amazonaws.com/2013/5/21/tumblr_m82johBhQv1rycz0wo1_500.gif" />
-    </div> 
+  <div class="error" ng-show="error.status">
+    <h3>The server is not responding</h3>
+    <h5>{{error.message}}</h5>
+    <img src="https://geoffreymoller-collect.s3.amazonaws.com/2013/5/21/tumblr_m82johBhQv1rycz0wo1_500.gif" />
+  </div> 
 
-    <form ng-submit="submit()" ng-class="{'loaded': loaded}" novalidate>
+  <div id="clock_container" ng-show="!loaded">
+    <div class="clock">
+      <div class="clock_knob"></div>
+      <div class="clock_hand"></div>
+    </div>
+  </div>
+
+    <form ng-submit="submit()" ng-show="loaded" novalidate>
       <table>
         <tr><td>Title: </td><td id="title"><input type="text" ng-model="link.value.title" /></td></tr>
         <tr><td>Location: </td><td><input id="location" ng-click="goToURI()" readonly="readonly" type="text" ng-model="link.value.uri" /></td></tr>

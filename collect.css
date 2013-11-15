@@ -35,14 +35,6 @@ span.error {
   background: url('117-todo.png') 10px 10px no-repeat;
 }
 
-form {
-  display: none;
-}
-
-form.loaded {
-  display: block;
-}
-
 .error img {
   max-width: 200px;
 }

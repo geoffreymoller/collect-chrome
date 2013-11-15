@@ -1,0 +1,130 @@
+/* 
+http://codepen.io/restlessdesign/pen/Kxhsy
+http://codepen.io/collection/HtAne/4
+*/
+#clock_container {
+  min-height: 150px;
+  background: #0e0e15;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@mixin transform($transform) {
+  -webkit-transform: $transform;
+  -moz-transform: $transform;
+  -ms-transform: $transform;
+  -o-transform: $transform;
+  transform: $transform;
+}
+
+@mixin animation($animation) {
+  -webkit-animation: #{$animation};
+  animation: #{$animation};
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content
+  }
+
+  @keyframes #{$name} {
+    @content
+  }
+}
+
+// ----------
+
+$clock_background: #d8d9d8;
+$clock_border_size: 6px;
+$clock_border_color: #686868;
+
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  border-radius: 100%;  
+}
+
+@mixin centered {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+@include keyframes(spin) {
+  0% {
+    @include transform(rotate(0deg));
+  }
+
+  100% {
+    @include transform(rotate(359deg));
+  }
+}
+
+.clock {
+  background: $clock_background;
+  position: relative;
+  box-sizing: border-box;
+  border: $clock_border_size solid $clock_border_color;
+  @include circle(80px);
+  @include centered;
+}
+
+.clock_hand {
+  $hand_base_width: 10px;
+  
+  background: $clock_border_color;
+  @include circle($hand_base_width);
+  @include centered;
+  @include transform(rotate(0deg));
+  @include animation(spin 1.5s infinite linear);
+  
+  &:before {
+    $hand_width: $hand_base_width / 2;
+    $hand_length: 32px;
+    
+    content: '.';
+    font-size: 1px;
+    z-index: 1;
+    border-left: $hand_width solid transparent;
+    border-right: $hand_width solid transparent;
+    border-bottom: $hand_length solid $clock_border_color;
+    position: absolute;
+    left: 50%;
+    margin-left: -$hand_width;
+    bottom: $hand_base_width / 2;
+  }
+}
+
+.clock_knob {
+  $knob_width: $clock_border_size * 0.9;
+  $knob_height: $clock_border_size * 0.5;
+
+  background: $clock_border_color;
+  width: $knob_width;
+  height: $knob_height;
+  position: absolute;
+  top: -($clock_border_size + $knob_height);
+  left: 50%;
+  margin-left: -($knob_width / 2);
+  
+  &:before {
+    $switch_width: $clock_border_size * 1.2;
+    $switch_height: $clock_border_size;
+
+    background: $clock_border_color;
+    content: '.';
+    font-size: 1px;
+    z-index: 1;
+    position: absolute;
+    width: $switch_width;
+    height: $clock_border_size;
+    top: -($knob_height + 2);
+    left: 50%;
+    margin-left: -($switch_width / 2);
+  }
+}
