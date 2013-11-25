@@ -1,11 +1,27 @@
+/*@import url("//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");*/
 body {
-  background: #dceaf4;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #f7f7f7;
+  font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !important;
+  font-weight: bold;
   margin: 0;
   min-width:357px;
   overflow-x:hidden;
   padding: 10px;
   font-size: 12px;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url('DXI1ORHCpsQm3Vp6mXoaTaRDOzjiPcYnFooOUGCOsRk.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('k3k702ZOKiLJc3WVjuplzKRDOzjiPcYnFooOUGCOsRk.woff') format('woff');
 }
 
 table {
@@ -14,11 +30,15 @@ table {
 }
 
 td {
+  font-size: .85rem;
   text-align: right;
 }
 
 input, textarea {
+  font-weight: bold;
+  padding: 4px;
   width: 100%;
+  font-family: 'Open Sans';
 }
 
 button {
