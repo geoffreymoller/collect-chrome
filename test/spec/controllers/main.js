@@ -9,7 +9,7 @@ describe('Controller: CollectController', function () {
   beforeEach(inject(function ($controller, $rootScope, $httpBackend) {
 
     scope = $rootScope.$new();
-    $httpBackend.when('GET', 'http://127.0.0.1:1972/link?URI=foobar').respond([])
+    $httpBackend.when('GET', 'http://bookmarken.herokuapp.com/link?URI=foobar').respond([])
     mockTabs = {
       query: function(params, callback){
         var tab = {
